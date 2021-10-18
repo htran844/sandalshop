@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 const Edit = (props) => {
+  const history = useHistory();
   const { id } = useParams();
   const { register, handleSubmit, reset } = useForm();
   const [product, setProduct] = useState({});
@@ -25,18 +27,18 @@ const Edit = (props) => {
     formData.set("slug", data.slug);
     for (let index = 0; index < data.color.length; index++) {
       formData.append("color[]", data.color[index]);
-      console.log(data.color[index]);
     }
     for (let index = 0; index < data.size.length; index++) {
       formData.append("size[]", data.size[index]);
     }
     axios({
       method: "put",
-      url: `http://localhost:5000/api/${id}`,
+      url: `https://sandalshop.herokuapp.com/api/${id}`,
       data: formData,
     }).then((res) => {
-      console.log(res.data);
+      props.onUpdate(res.data);
     });
+    history.push("/admin");
   };
   return (
     <>

@@ -4,7 +4,7 @@ const AddProduct = (props) => {
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     const formData = new FormData();
-    console.log(data.color);
+
     formData.append("images", data.images[0]);
     formData.set("title", data.title);
     formData.set("code", data.code);
@@ -12,7 +12,6 @@ const AddProduct = (props) => {
     formData.set("slug", data.slug);
     for (let index = 0; index < data.color.length; index++) {
       formData.append("color[]", data.color[index]);
-      console.log(data.color[index]);
     }
     for (let index = 0; index < data.size.length; index++) {
       formData.append("size[]", data.size[index]);
